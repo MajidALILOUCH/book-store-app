@@ -1,0 +1,38 @@
+<div class="container">
+  <h2>{{ isEditMode ? "Edit Book" : "Add New Book" }}</h2>
+
+  <form [formGroup]="bookForm" (ngSubmit)="onSubmit()">
+    <label for="title">Title:</label>
+    <input id="title" formControlName="title" required />
+    <div
+      *ngIf="bookForm.get('title')?.invalid && bookForm.get('title')?.touched"
+    >
+      Title is required (1-100 chars).
+    </div>
+
+    <label for="author">Author:</label>
+    <input id="author" formControlName="author" required />
+    <div
+      *ngIf="bookForm.get('author')?.invalid && bookForm.get('author')?.touched"
+    >
+      Author is required (1-100 chars).
+    </div>
+
+    <label for="price">Price:</label>
+    <input id="price" type="number" formControlName="price" required />
+    <div
+      *ngIf="bookForm.get('price')?.invalid && bookForm.get('price')?.touched"
+    >
+      Price must be a positive number.
+    </div>
+
+    <label for="description">Description:</label>
+    <textarea id="description" formControlName="description"></textarea>
+
+    <button type="submit" [disabled]="bookForm.invalid">
+      {{ isEditMode ? "Update" : "Add" }} Book
+    </button>
+
+    <button type="button" class="btn cancel" (click)="cancel()">Cancel</button>
+  </form>
+</div>
